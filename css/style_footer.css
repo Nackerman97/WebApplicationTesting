@@ -1,0 +1,42 @@
+
+footer{
+	position: fixed;
+	bottom: 0;
+}
+.footer-distributed{
+	background-color: lightgrey;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+    
+	padding: 55px 50px;
+	margin-top: 80px;
+}
+ 
+.footer-distributed .footer-left{
+	display: inline-block;
+    vertical-align: top;
+    width: 40%;
+}
+ 
+.footer-distributed .footer-links{
+	color:  black;
+	margin: 20px 0 12px;
+	padding: 0;
+}
+ 
+.footer-distributed .footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+	text-decoration: none;
+	color:  inherit;
+}
+ 
+.footer-distributed .footer-company-name{
+	color:  #5081c2;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}

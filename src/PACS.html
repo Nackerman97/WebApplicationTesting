@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+ <html class="no-js"> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Temp Project</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel = "stylesheet" type = "text/css" href = "../css/style.css">
+        <link rel = "stylesheet" type = "text/css" href = "../css/style_button_group.css">
+        <link rel = "stylesheet" type = "text/css" href = "../css/style_PACS_main.css">
+    </head>
+    <body>
+        <div class="sidenav">
+            <a href="Main.html"><img src="../photos/logo3.png" alt="logo"></a>
+            <a href="PACS.html">PACS</a>
+            <a href="VC_Offer.html">VC OFFER</a>
+        </div>
+  
+          <!-- Page content -->
+        <div class="main">
+
+            <div class="header"><h1>PACS Screens</h1></div>
+
+
+            <div class="navbar">
+                <a href="#home">PACS Home</a>
+                <a href="#home">PF14</a>
+                <a href="#news">PF15</a>
+                <a href="#home">PF16</a>
+                <div class="dropdown">
+                    <button class="dropbtn">PF17
+                      <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                      <a href="#">Billing Header (PF17/2)</a>
+                      <a href="#">Allowance List by Vendor</a>
+                      <a href="#">Promotion List by Vendor</a>
+                    </div>
+                  </div>
+                <a href="#news">PF18</a>
+                <div class="dropdown">
+                  <button class="dropbtn">PF19
+                    <i class="fa fa-caret-down"></i>
+                  </button>
+                  <div class="dropdown-content">
+                    <a href="#">Item</a>
+                    <a href="#">Recieving's</a>
+                    <a href="#">Vendor</a>
+                  </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">PF20
+                      <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                      <a href="#">Allowance List by Item</a>
+                      <a href="#">Promotion List by Item</a>
+                      <a href="#">Performance Listing</a>
+                    </div>
+                  </div> 
+
+            </div>
+
+            <p>Input boxes will need to go here for the inputs of each screen. 
+                Most liekly this will be able to be generalized and only certain fields 
+                will be requried based of the button that is pressed by the user. 
+            </p>
+            <form >
+                <label for="fname">Warehouse:</label>
+                <input type="text" id="OfferNum" value=""><br><br>
+                <label for="fname">Item:</label>
+                <input type="text" id="Div" value=""><br><br>
+                <label for="fname">UPC:</label>
+                <input type="text" id="Div" value=""><br><br>
+                <label for="fname">Vendor:</label>
+                <input type="text" id="Div" value=""><br><br>
+                <label for="fname">Log:</label>
+                <input type="text" id="Div" value=""><br><br>
+                <input type="submit" value="Submit">
+            </form>
+            <div class="Data">
+
+            </div>
+
+            <!-- Footer Content -->
+            <footer class="footer-distributed">
+            <div class="footer-left">
+            <p class="footer-links">
+            <a href="Main.html">Home</a>
+          ·
+            <a href="#">About</a>
+          ·
+            <a href="mailto:nicholas.ackerman@Albertsons.com">Contact</a>
+            </p>
+         
+            <p class="footer-company-name">Albertsons &copy; 2020</p>
+            </div>   
+          </footer>
+        </div>
+
+
+    </body>
+</html> 
+
+<script>
+
+  var connection = new ActiveXObject("ADODB.Connection") ;
+  var connectionstring="Provider=MSDASQL.1;Persist Security Info=True;Extended Properties=DSN=DB2P;UID=NACKE08;PWD=wildcat3;"
+  var sql = "";
+  var htmlString = "";
+
+  document.getElementById('inputfile').addEventListener('change', function() { 
+  var fr=new FileReader(); 
+  fr.onload=function(){
+      sql = fr.result;
+      sql = sql.replace("&ITEM_NUMBER",document.getElementById('OfferNum').value);
+
+      connection.Open(connectionstring);
+      var rs = new ActiveXObject("ADODB.Recordset");
+      rs.Open(sql, connection);
+
+      var upcElements = new Array();
+      var tableElements = new Array();
+      var htmlString = '<table style="width:100%">'+ '<tr><th>LOG</th><th>VENDOR</th><th>OFFER NUMBER</th>' +
+                  '<th>ORDER FROM DATE</th><th>ORDER TO DATE</th><th>SHIP FROM DATE</th><th>SHIP TO DATE</th>' +
+                  '<th>ARRIVAL FROM DATE</th><th>ARRIVAL TO DATE</th><th>ALLOW AMT</th><th>ALLOW TYPE</th>' +
+                  '<th>VENDOR NAME</th><th>MERCHANDISER</th><th>CREATION DATE</th></tr>'
+    
+      while(!rs.eof)
+      {   
+          var formattingString = ""
+          if(upcElements.indexOf(rs.fields(18).value)==-1){
+              upcElements.push(rs.fields(18).value);
+              tableElements.push("<p id="+rs.fields(18).value+"><b>CIC:"+rs.fields(17).value+"  UPC:"+rs.fields(18).value+"  "+rs.fields(19).value+"<br></b>"+htmlString);
+          }
+
+          var dtORD = new Date(rs.fields(22));
+          var dtSHIP = new Date(rs.fields(23));
+          var dtRECV = new Date(rs.fields(24));
+
+          if(rs.fields(32)==0.00){
+              formattingString = formattingString + "<tr class = 'tableHighlight'>";
+          }else{
+              formattingString = formattingString + "<tr>";
+          }
+          formattingString = formattingString + "<th><input type='checkbox' />" +rs.fields(20) + "</th>";
+          formattingString = formattingString + "<th>" +rs.fields(21) + "</th>";
+          formattingString = formattingString + "<th>" +dtORD.getMonth()+"/"+dtORD.getDate()+"/"+dtORD.getFullYear()+ "</th>";
+          formattingString = formattingString + "<th>" +dtSHIP.getMonth()+"/"+dtSHIP.getDate()+"/"+dtSHIP.getFullYear()+ "</th>";
+          formattingString = formattingString + "<th>" +dtRECV.getMonth()+"/"+dtRECV.getDate()+"/"+dtRECV.getFullYear()+ "</th>";
+          if(rs.fields(25)==0.00){
+              formattingString = formattingString + "<th class = 'tableHighlightRed'>" +rs.fields(25) + "</th>";
+          }else{
+              formattingString = formattingString + "<th>" +rs.fields(25) + "</th>";
+          }
+          formattingString = formattingString + "<th>" +rs.fields(26) + "</th>";
+          formattingString = formattingString + "<th>" +rs.fields(27) + "</th>";
+          formattingString = formattingString + "<th>" +rs.fields(28) + "</th>";
+          formattingString = formattingString + "<th>" +rs.fields(29) + "</th>";
+          formattingString = formattingString + "<th>" +rs.fields(30) + "</th>";
+          formattingString = formattingString + "<th>" +rs.fields(31) + "</th>";
+          formattingString = formattingString + "<th>" +rs.fields(32) + "</th>";
+          formattingString = formattingString + "<th>" +rs.fields(32) + "</th>";
+          formattingString = formattingString + "</tr>";
+
+          tableElements[upcElements.indexOf(rs.fields(18).value)] = tableElements[upcElements.indexOf(rs.fields(18).value)] + formattingString;
+      
+          rs.movenext;
+
+      }
+      //Combining the Different UPC Tables
+      var finalString = "";
+      for(let i = 0; i < tableElements.length; i++){
+          finalString = finalString + (tableElements[i] + '</table></p>');
+          console.log(finalString);
+      }
+      document.getElementById('tables').innerHTML = finalString;
+      rs.close;
+      connection.close;
+  }     
+  fr.readAsText(this.files[0]);
+  });
+
+</script>
