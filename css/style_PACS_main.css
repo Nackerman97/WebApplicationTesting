@@ -24,7 +24,7 @@
     outline: none;
     color: white;
     padding: 14px 16px;
-    background-color: inherit;
+    background-color: #333;
     font-family: inherit;
     margin: 0;
   }
@@ -52,7 +52,7 @@
   }
   
   .dropdown-content a:hover {
-    background-color:  lightgrey;
+    background-color: #1abc9c;
   }
   
   .dropdown:hover .dropdown-content {
@@ -80,4 +80,25 @@
     border-radius: 4px;
     background-color: #1abc9c;
     font-size: larger;
+  }
+
+
+  /*Tables Styling*/
+  #tables{
+    width: 80%;
+    border-width: 3px;
+    border: 2px solid #1abc9c;
+    padding: 16px 20px;
+  }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  table tr:nth-of-type(1) {background:  #1abc9c;}
+
+  .tableHighlight{
+    background: orange;
+  }
+  .tableHighlightRed{
+    background: red;
   }

@@ -22,15 +22,16 @@
         <div class="main">
             <div class="header"><h1>VC Offer</h1></div>
             <p>This is where the VC Offer manager will be placed</p>
-            <form >
+            <form>
                 <label for="fname">Offer #:</label>
                 <input type="text" id="OfferNum" value=""><br><br>
                 <label for="fname">Division:</label>
                 <input type="text" id="Div" value=""><br><br>
                 <input type="submit" value="Submit">
+                <input type="file" name="inputfile" id="inputfile">
             </form>
 
-
+            <div id="tables">No Data</div>
 
             <!-- Footer Content -->
             <footer class="footer-distributed">
@@ -76,7 +77,7 @@
                     '<th>SHIP DATE</th><th>RECV DATE</th><th>QTY RECV</th><th>PACS LIST</th>' +
                     '<th>STORE COST</th><th>EDI LIST</th><th>PO OI XPCTD</th><th>PO BB XPCTD</th>' +
                     '<th>OI ALW RCVD +</th><th>BB ALW RCVD =</th><th>TOTAL ALLOW</th></tr>'
-       //<button class="accordion">CIC 25100155</button><div class="panel"> 
+
         while(!rs.eof)
         {   
             var formattingString = ""
